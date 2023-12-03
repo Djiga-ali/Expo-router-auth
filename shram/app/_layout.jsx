@@ -5,6 +5,7 @@ import { Slot } from "expo-router";
 import { Provider, useSelector } from "react-redux";
 import store from "../redux/api/store";
 import UserProvider from "../context/Context";
+// import "../global.css";
 
 const RootLayout = () => {
   return (
