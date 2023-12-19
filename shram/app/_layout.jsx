@@ -3,8 +3,10 @@ import React from "react";
 import { Slot } from "expo-router";
 // redux tool-kit
 import { Provider, useSelector } from "react-redux";
-import store from "../redux/api/store";
-import UserProvider from "../context/Context";
+import store from "../src/redux/api/store";
+import UserProvider from "../src/context/Context";
+// import store from "../redux/api/store";
+// import UserProvider from "../context/Context";
 // import "../global.css";
 
 const RootLayout = () => {

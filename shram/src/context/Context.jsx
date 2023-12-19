@@ -4,7 +4,7 @@ const UserContext = createContext();
 
 const UserProvider = ({ children }) => {
   const [token, setToken] = useState("token");
-  const [user, setuser] = useState("user");
+  const [user, setUser] = useState("user");
   const [refreshToken, setRefreshToken] = useState("refreshToken");
   const [loggedIn, setLoggedIn] = useState("loggedIn");
 
@@ -14,7 +14,7 @@ const UserProvider = ({ children }) => {
         token,
         setToken,
         user,
-        setuser,
+        setUser,
         refreshToken,
         setRefreshToken,
         loggedIn,
@@ -26,8 +26,8 @@ const UserProvider = ({ children }) => {
   );
 };
 
-export const useAuth = () => {
-  return useContext(UserContext);
-};
+// export const useAuth = () => {
+//   return useContext(UserContext);
+// };
 
 export default UserProvider;
