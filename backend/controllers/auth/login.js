@@ -38,7 +38,8 @@ exports.loginUser = async (req, res) => {
     );
 
     const refreshToken = jwt.sign(
-      { _id: user._id, user },
+      { _id: user._id },
+      // { _id: user._id, user },
 
       process.env.REFRESH_JWT_SECRET,
       { expiresIn: "7d" }
@@ -79,12 +80,13 @@ exports.refreshForMobile = (req, res) => {
       user.password = undefined;
 
       const accessToken = jwt.sign(
-        { _id: user._id, user },
+        { _id: user._id },
+        // { _id: user._id, user },
         process.env.ACCESS_JWT_SECRET,
         { expiresIn: "1m" }
       );
 
-      res.json(accessToken);
+      res.json({ accessToken, user });
     }
   );
 };

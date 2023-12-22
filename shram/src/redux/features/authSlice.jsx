@@ -14,8 +14,8 @@ export const authSlice = apiSlice.injectEndpoints({
         try {
           const { data } = await queryFulfilled;
           // console.log(data);
-          const { accessToken } = data;
-          dispatch(getLogin({ accessToken }));
+          const { accessToken, user, refreshToken } = data;
+          dispatch(getLogin({ accessToken, user, refreshToken }));
         } catch (err) {
           console.log(err);
         }
@@ -42,18 +42,19 @@ export const authSlice = apiSlice.injectEndpoints({
     }),
 
     // Refresh for mobile ***
+    // getMobileRefresh: builder.mutation({
     getMobileRefresh: builder.mutation({
-      query: (credentials) => ({
-        url: "/auth/refresh-mobile",
+      query: (refreshToken) => ({
+        url: `/auth/refresh/${refreshToken}`,
         method: "POST",
-        body: { ...credentials },
+        // body: { ...credentials },
       }),
       async onQueryStarted(arg, { dispatch, queryFulfilled }) {
         try {
           const { data } = await queryFulfilled;
           // console.log(data);
-          const { accessToken } = data;
-          dispatch(getLogin({ accessToken }));
+          const { accessToken, user } = data;
+          dispatch(getLogin({ accessToken, user }));
         } catch (err) {
           console.log(err);
         }
@@ -61,7 +62,7 @@ export const authSlice = apiSlice.injectEndpoints({
     }),
 
     // get user
-    getUser: builder.query({
+    getAuthenticatedUser: builder.query({
       query: (userId) => `/auth/get-user/${userId}`,
       // https://redux-toolkit.js.org/rtk-query/usage/automated-refetching
       providesTags: ["User"],
@@ -71,5 +72,8 @@ export const authSlice = apiSlice.injectEndpoints({
 export const {
   useLoginSessionMutation,
   useLogoutSessionMutation,
-  useGetUserQuery,
+  // useGetUserQuery,
+  useGetAuthenticatedUserQuery,
+  // useGetMobileRefreshQuery,
+  useGetMobileRefreshMutation,
 } = authSlice;

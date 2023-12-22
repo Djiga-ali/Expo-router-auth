@@ -20,7 +20,7 @@ router.post("/create", registerNewUser);
 router.post("/activate", activateNewUser);
 router.post("/login", loginUser);
 router.get("/get-user/:userId", getLoggedInUser);
-router.get("/refresh/:myRefreshToken", refreshForMobile);
+router.post("/refresh/:myRefreshToken", refreshForMobile);
 router.post("/logout", logoutUser);
 router.post("/forgot-password", forgotPassword);
 router.patch("/reset-password/:forgotPasswordToken", setNewPassword);

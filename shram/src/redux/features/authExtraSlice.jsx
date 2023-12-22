@@ -1,9 +1,11 @@
 import { createSlice } from "@reduxjs/toolkit";
 import * as SecureStore from "expo-secure-store";
 
+const initialState = { token: null, refreToken: null, user: null };
+
 const authExtraSlice = createSlice({
   name: "auth",
-  initialState: { token: null, refreToken: null, user: null },
+  initialState,
   reducers: {
     getLogin: (state, action) => {
       const { accessToken, refreshToken, user } = action.payload;
@@ -24,3 +26,4 @@ export const { getLogin, logOutMySession } = authExtraSlice.actions;
 export default authExtraSlice.reducer;
 
 export const selectCurrentToken = (state) => state.auth.token;
+export const selectLoggedInUser = (state) => state.auth.user;

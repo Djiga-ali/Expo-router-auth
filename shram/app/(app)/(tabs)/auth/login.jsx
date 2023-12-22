@@ -15,7 +15,7 @@ import {
 
 const LoginScreen = () => {
   //   const { user } = useAuth();
-  const [loggedIn, setLoggedIn] = useState(false);
+
   const [token, setToken] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -49,13 +49,18 @@ const LoginScreen = () => {
         console.log("accessToken:", accessToken);
 
         if (accessToken) {
+          // await AsyncStorage.setItem("user", JSON.stringify(user));
+          await SecureStore.setItemAsync(
+            "refreshToken",
+            refreshToken
+            // JSON.stringify(refreshToken)
+          );
           // await SecureStore.setItemAsync("token", accessToken);
-          // await SecureStore.setItemAsync("token", JSON.stringify(accessToken));
+          // await SecureStore.setItemAsync("user", JSON.stringify(user));
           // await AsyncStorage.setItem("token", JSON.stringify(accessToken));
           setToken(accessToken);
+          router.replace("home");
         }
-
-        router.replace("home");
       } catch (error) {
         console.log(error);
       }
