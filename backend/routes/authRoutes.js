@@ -6,6 +6,7 @@ const {
   logoutUser,
   refreshForMobile,
   getLoggedInUser,
+  refreshForMobile2,
   // login,
 } = require("../controllers/auth/login");
 const {
@@ -21,6 +22,7 @@ router.post("/activate", activateNewUser);
 router.post("/login", loginUser);
 router.get("/get-user/:userId", getLoggedInUser);
 router.post("/refresh/:myRefreshToken", refreshForMobile);
+router.get("/refresh-token/:myRefreshToken", refreshForMobile2);
 router.post("/logout", logoutUser);
 router.post("/forgot-password", forgotPassword);
 router.patch("/reset-password/:forgotPasswordToken", setNewPassword);

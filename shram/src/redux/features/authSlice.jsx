@@ -42,7 +42,7 @@ export const authSlice = apiSlice.injectEndpoints({
     }),
 
     // Refresh for mobile ***
-    // getMobileRefresh: builder.mutation({
+    // use mutation
     getMobileRefresh: builder.mutation({
       query: (refreshToken) => ({
         url: `/auth/refresh/${refreshToken}`,
@@ -57,6 +57,23 @@ export const authSlice = apiSlice.injectEndpoints({
           dispatch(getLogin({ accessToken, user }));
         } catch (err) {
           console.log(err);
+        }
+      },
+    }),
+    // use query
+    getMobileRefreshTwo: builder.query({
+      query: (refreshToken) => `/auth/refresh-token/${refreshToken}`,
+
+      async onQueryStarted(arg, { dispatch, queryFulfilled }) {
+        try {
+          const { data } = await queryFulfilled;
+          // console.log(data);
+          const { accessToken, user } = data;
+          dispatch(getLogin({ accessToken, user }));
+        } catch (err) {
+          console.log(err?.error?.data?.message);
+          // console.log(data.message);
+          // console.log("No refresh token or refresh expired please login again");
         }
       },
     }),
@@ -76,4 +93,5 @@ export const {
   useGetAuthenticatedUserQuery,
   // useGetMobileRefreshQuery,
   useGetMobileRefreshMutation,
+  useGetMobileRefreshTwoQuery,
 } = authSlice;

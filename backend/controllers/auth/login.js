@@ -42,6 +42,7 @@ exports.loginUser = async (req, res) => {
       // { _id: user._id, user },
 
       process.env.REFRESH_JWT_SECRET,
+      // { expiresIn: "1m" }
       { expiresIn: "7d" }
     );
 
@@ -86,6 +87,40 @@ exports.refreshForMobile = (req, res) => {
         { expiresIn: "1m" }
       );
 
+      res.json({ accessToken, user });
+    }
+  );
+};
+// Refresh for expo react native
+exports.refreshForMobile2 = (req, res) => {
+  const { myRefreshToken } = req.params;
+
+  if (!myRefreshToken) return res.status(401).json({ message: "Unauthorized" });
+  if (myRefreshToken === null) {
+    return res.status(200).json({ message: "No refesh token" });
+  }
+
+  // const refreshToken = cookies.token;
+
+  jwt.verify(
+    myRefreshToken,
+    process.env.REFRESH_JWT_SECRET,
+    async (err, decoded) => {
+      if (err) return res.status(403).json({ message: "Forbidden" });
+      // if (err) return res.status(200).json({ message: "Forbidden" });
+
+      const user = await User.findOne({ _id: decoded._id }).exec();
+
+      if (!user) return res.status(401).json({ message: "Unauthorized" });
+      user.password = undefined;
+
+      const accessToken = jwt.sign(
+        { _id: user._id },
+        // { _id: user._id, user },
+        process.env.ACCESS_JWT_SECRET,
+        { expiresIn: "1m" }
+      );
+      console.log("err:", err);
       res.json({ accessToken, user });
     }
   );
