@@ -109,7 +109,7 @@ const HomeSceen = () => {
       <ScrollView>
         <View>
           <Link href="home">
-            <Text>Home</Text>
+            <Text className="text-red-500">Home</Text>
           </Link>
           <Link href="home/about">
             <Text>About</Text>
