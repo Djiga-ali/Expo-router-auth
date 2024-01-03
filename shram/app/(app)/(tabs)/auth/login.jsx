@@ -5,7 +5,7 @@ import { SafeAreaView } from "react-native-safe-area-context";
 import useAuth from "../../../../src/hooks/useAuth";
 import { useDispatch } from "react-redux";
 
-import { useRouter } from "expo-router";
+import { useRouter, Redirect } from "expo-router";
 import * as SecureStore from "expo-secure-store";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import {
@@ -60,6 +60,7 @@ const LoginScreen = () => {
           // await AsyncStorage.setItem("token", JSON.stringify(accessToken));
           setToken(accessToken);
           router.replace("home");
+          <Redirect href="/home" />;
         }
       } catch (error) {
         console.log(error);
@@ -68,14 +69,6 @@ const LoginScreen = () => {
       console.log(error);
     }
   };
-
-  if (isLoading) {
-    return (
-      <View>
-        <Text>Loading...</Text>
-      </View>
-    );
-  }
 
   //   const logout = async () => {
   //     await logoutSession();

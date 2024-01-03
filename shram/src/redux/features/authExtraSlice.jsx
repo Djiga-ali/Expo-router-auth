@@ -27,3 +27,4 @@ export default authExtraSlice.reducer;
 
 export const selectCurrentToken = (state) => state.auth.token;
 export const selectLoggedInUser = (state) => state.auth.user;
+export const selectRefreshToken = (state) => state.auth.refreToken;

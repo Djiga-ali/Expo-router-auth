@@ -7,7 +7,8 @@ import store from "../src/redux/api/store";
 import UserProvider from "../src/context/Context";
 // import store from "../redux/api/store";
 // import UserProvider from "../context/Context";
-// import "../global.css";
+import "../global.css";
+// Nativewind
 
 const RootLayout = () => {
   return (

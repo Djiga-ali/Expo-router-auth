@@ -2,8 +2,10 @@ import { View, Text, ScrollView } from "react-native";
 import React from "react";
 import { Link } from "expo-router/src/exports";
 import { SafeAreaView } from "react-native-safe-area-context";
+import useAuth from "../../../../src/hooks/useAuth";
 
 const RegisterScreen = () => {
+  const { user } = useAuth();
   return (
     <SafeAreaView>
       <ScrollView>
@@ -21,6 +23,9 @@ const RegisterScreen = () => {
             <Text>Register</Text>
           </Link>
           <Text>Register</Text>
+        </View>
+        <View>
+          <Text>USER : {JSON.stringify(user, null, 4)}</Text>
         </View>
       </ScrollView>
     </SafeAreaView>

@@ -5,8 +5,10 @@ import { SafeAreaView } from "react-native-safe-area-context";
 import * as SecureStore from "expo-secure-store";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import { useRouter } from "expo-router";
+import useAuth from "../../../../src/hooks/useAuth";
 
 const About = () => {
+  const { user } = useAuth();
   // const [userToken, setUserToken] = useState(
   //   "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2NGY3MjgxM2M5NDg3ZWE5NTQxMWRjNmUiLCJpYXQiOjE3MDI5OTgzNTYsImV4cCI6MTcwMjk5ODQxNn0.Qn5jFZ5QfgaM6gpZCF9II4LbMGBdqXSnHSf2736o4tY"
   // );
@@ -82,7 +84,7 @@ const About = () => {
         <View>
           {/* <Text>{userId}</Text> */}
           <View>
-            <Text>{JSON.stringify(userId, null, 4)}</Text>
+            <Text>USER : {JSON.stringify(user, null, 4)}</Text>
           </View>
         </View>
         <Button

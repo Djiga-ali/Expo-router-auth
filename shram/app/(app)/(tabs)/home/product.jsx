@@ -6,8 +6,10 @@ import * as SecureStore from "expo-secure-store";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import { useSelector } from "react-redux";
 import { selectCurrentToken } from "../../../../src/redux/features/authExtraSlice";
+import useAuth from "../../../../src/hooks/useAuth";
 
 const ProductScreen = () => {
+  const { user } = useAuth();
   const [userId, setUserId] = useState(null);
 
   const myToken = useSelector(selectCurrentToken);
@@ -69,7 +71,7 @@ const ProductScreen = () => {
         <View>
           <Text>myToken:{myToken}</Text>
           <View>
-            <Text>{JSON.stringify(userId, null, 4)}</Text>
+            <Text>USER : {JSON.stringify(user, null, 4)}</Text>
           </View>
         </View>
         <Button

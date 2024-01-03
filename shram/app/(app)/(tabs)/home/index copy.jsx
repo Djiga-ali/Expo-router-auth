@@ -13,7 +13,7 @@ import * as SecureStore from "expo-secure-store";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import { jwtDecode } from "jwt-decode";
 import JWT from "expo-jwt";
-import { useRouter, Redirect } from "expo-router";
+import { useRouter } from "expo-router";
 import { useSelector } from "react-redux";
 import {
   selectCurrentToken,
@@ -23,7 +23,7 @@ import HomePage from "../../../../src/components/home/HomePage";
 // reoad screen
 
 const HomeSceen = () => {
-  const { user } = useAuth();
+  // const { user } = useAuth();
   const [token, setToken] = useState(null);
   const [userId, setUserId] = useState(null);
   const [authenticated, setAuthenticated] = useState(null);
@@ -42,6 +42,11 @@ const HomeSceen = () => {
     isError,
     error,
   } = useGetMobileRefreshTwoQuery(refreshToken);
+
+  const [
+    getMobileRefresh,
+    { data: refreshTokenData = [], isLoading: myLoading },
+  ] = useGetMobileRefreshMutation();
 
   const myToken = useSelector(selectCurrentToken);
   const loggedInUser = useSelector(selectLoggedInUser);
@@ -74,7 +79,14 @@ const HomeSceen = () => {
     // getMobileRefresh(refreshToken);
   };
 
-  if (isLoading || Loading) {
+  if (isLoading || Loading || myLoading) {
+    return (
+      <View>
+        <Text>Loading...</Text>
+      </View>
+    );
+  }
+  if (Loading) {
     return (
       <View>
         <Text>Loading...</Text>
@@ -83,8 +95,7 @@ const HomeSceen = () => {
   }
 
   if (refreshToken && !myToken && error?.data?.message === "Forbidden") {
-    // router.replace("auth/login");
-    return <Redirect href="/auth/login" />;
+    router.replace("auth/login");
   }
 
   const logout = async () => {
@@ -119,9 +130,6 @@ const HomeSceen = () => {
           <Link href="auth/register">
             <Text>Register</Text>
           </Link>
-          <Link href="(tabs)/dashboard">
-            <Text>Dashbord</Text>
-          </Link>
           <Text>HomeSceen</Text>
         </View>
         <View>
@@ -150,16 +158,6 @@ const HomeSceen = () => {
           className="w-full h-10 mt-3"
           // onPress={runRefresf}
         />
-
-        <View>
-          <Text>
-            {user ? (
-              <Text>USER :{JSON.stringify(user?._id, null, 4)}</Text>
-            ) : (
-              "No user"
-            )}
-          </Text>
-        </View>
       </ScrollView>
     </SafeAreaView>
   );
